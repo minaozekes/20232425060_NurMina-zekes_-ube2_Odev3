@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Soru 2</title>
+    <style>
+        body {
+            background-color: #141414;
+            color: white;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            padding: 20px 40px;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0, rgba(0, 0, 0, 0) 100%);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            color: #E50914;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .container {
+            padding: 20px 40px;
+        }
+
+        .row {
+            margin-bottom: 30px;
+        }
+
+        .row-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .row-title {
+            font-size: 1.4vw;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .slider-indicator {
+            display: flex;
+            gap: 2px;
+        }
+
+        .slider-indicator div {
+            width: 12px;
+            height: 2px;
+            background-color: #4d4d4d;
+        }
+
+        .slider-indicator div.active {
+            background-color: #aaa;
+        }
+
+        .row-posters {
+            display: flex;
+            overflow-y: hidden;
+            overflow-x: scroll;
+            padding: 20px 0;
+        }
+
+        .row-posters::-webkit-scrollbar {
+            display: none;
+        }
+
+        .card {
+            background-color: #333;
+            margin-right: 15px;
+            min-width: 320px;
+            height: 180px;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            box-sizing: border-box;
+            transition: transform 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            z-index: 1;
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9);
+            text-transform: uppercase;
+        }
+
+        .recently-added {
+            background-color: #E50914;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 3px;
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">NETFLIX</div>
+    </header>
+    <div id="main-container" class="container">
+        <!-- Content will be injected here by JS -->
+    </div>
+    <script>
+        const data = [
+            {
+                category: "Because you watched Gupi",
+                movies: [
+                    { title: "IF", recentlyAdded: true, img: "https://picsum.photos/seed/IF/320/180" },
+                    { title: "MIGRATION", recentlyAdded: false, img: "https://picsum.photos/seed/MIGRATION/320/180" },
+                    { title: "RAFADAN TAYFA KAPADOKYA", recentlyAdded: false, img: "https://picsum.photos/seed/RAFADAN/320/180" }
+                ]
+            },
+            {
+                category: "Activating Hibernation Mode \u203A",
+                movies: [
+                    { title: "JAADUGAR", recentlyAdded: false, img: "https://picsum.photos/seed/JAADUGAR/320/180" },
+                    { title: "BLACKLIST", recentlyAdded: false, img: "https://picsum.photos/seed/BLACKLIST/320/180" },
+                    { title: "PEAKY BLINDERS", recentlyAdded: false, img: "https://picsum.photos/seed/PEAKY/320/180" }
+                ]
+            },
+            {
+                category: "30-Minute Laughs",
+                movies: [
+                    { title: "OLD DOG, NEW TRICKS", recentlyAdded: false, img: "https://picsum.photos/seed/OLDDOG/320/180" },
+                    { title: "MO", recentlyAdded: false, img: "https://picsum.photos/seed/MO/320/180" },
+                    { title: "young Sheldon", recentlyAdded: false, img: "https://picsum.photos/seed/SHELDON/320/180" }
+                ]
+            },
+            {
+                category: "Only on Netflix",
+                movies: [
+                    { title: "HOUSE OF GUINNESS", recentlyAdded: false, img: "https://picsum.photos/seed/GUINNESS/320/180" },
+                    { title: "CHUPA", recentlyAdded: false, img: "https://picsum.photos/seed/CHUPA/320/180" },
+                    { title: "THE RESIDENCE", recentlyAdded: false, img: "https://picsum.photos/seed/RESIDENCE/320/180" }
+                ]
+            },
+            {
+                category: "Because you watched The Decameron",
+                movies: [
+                    { title: "CRAP HAPPENS", recentlyAdded: true, img: "https://picsum.photos/seed/CRAP/320/180" },
+                    { title: "JOE'S COLLEGE ROAD TRIP", recentlyAdded: true, img: "https://picsum.photos/seed/JOES/320/180" },
+                    { title: "PAUL", recentlyAdded: false, img: "https://picsum.photos/seed/PAUL/320/180" }
+                ]
+            }
+        ];
+
+        const container = document.getElementById("main-container");
+
+        for (let i = 0; i < data.length; i++) {
+            const categoryObj = data[i];
+
+            const rowDiv = document.createElement("div");
+            rowDiv.classList.add("row");
+
+            const rowHeaderDiv = document.createElement("div");
+            rowHeaderDiv.classList.add("row-header");
+
+            const titleH2 = document.createElement("h2");
+            titleH2.classList.add("row-title");
+            titleH2.textContent = categoryObj.category;
+
+            // Adding mock slider indicator for styling accuracy
+            const sliderIndicator = document.createElement("div");
+            sliderIndicator.classList.add("slider-indicator");
+            for (let k = 0; k < 6; k++) {
+                const dot = document.createElement("div");
+                if (k === 0) dot.classList.add("active");
+                sliderIndicator.appendChild(dot);
+            }
+
+            rowHeaderDiv.appendChild(titleH2);
+            rowHeaderDiv.appendChild(sliderIndicator);
+            rowDiv.appendChild(rowHeaderDiv);
+
+            const postersDiv = document.createElement("div");
+            postersDiv.classList.add("row-posters");
+
+            for (let j = 0; j < categoryObj.movies.length; j++) {
+                const movieObj = categoryObj.movies[j];
+
+                const cardDiv = document.createElement("div");
+                cardDiv.classList.add("card");
+
+                // Arkaplan resmi yer tutucu (placeholder) fotoğraf olarak ayarlandı
+                cardDiv.style.backgroundImage = `linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%), url('${movieObj.img}')`;
+                cardDiv.style.backgroundSize = "cover";
+                cardDiv.style.backgroundPosition = "center";
+
+                const cardTitle = document.createElement("div");
+                cardTitle.classList.add("card-title");
+                cardTitle.textContent = movieObj.title;
+
+                cardDiv.appendChild(cardTitle);
+
+                if (movieObj.recentlyAdded) {
+                    const badge = document.createElement("div");
+                    badge.classList.add("recently-added");
+                    badge.textContent = "Recently Added";
+                    cardDiv.appendChild(badge);
+                }
+
+                postersDiv.appendChild(cardDiv);
+            }
+
+            rowDiv.appendChild(postersDiv);
+            container.appendChild(rowDiv);
+        }
+    </script>
+</body>
+
+</html>

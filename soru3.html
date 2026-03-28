@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Soru 3</title>
+</head>
+
+<body>
+    <h1>Fibonacci Serisi İlk 20 Sayı</h1>
+    <script>
+        let count = 0;
+        let n1 = 0, n2 = 1, nextTerm;
+
+        document.write("<p style='font-size: 18px; font-weight: bold;'>");
+
+        while (count < 20) {
+            document.write(n1);
+            if (count < 19) {
+                document.write(", ");
+            }
+
+            nextTerm = n1 + n2;
+            n1 = n2;
+            n2 = nextTerm;
+
+            count++;
+        }
+
+        document.write("</p>");
+    </script>
+</body>
+
+</html>

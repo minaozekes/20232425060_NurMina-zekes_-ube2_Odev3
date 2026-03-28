@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Soru 1</title>
+</head>
+<body>
+    <h1>Sipariş Özeti</h1>
+    <script>
+        let urunSayisi = parseInt(prompt("Toplamda kaç farklı ürün gireceksiniz?"));
+        if (isNaN(urunSayisi) || urunSayisi <= 0) {
+            document.write("Geçerli bir ürün sayısı girilmedi.");
+        } else {
+            let sepetToplami = 0;
+            
+            for (let i = 0; i < urunSayisi; i++) {
+                let urunAdi = prompt((i + 1) + ". ürün adını giriniz:");
+                let fiyatStr = prompt(urunAdi + " için ürün fiyatı giriniz:");
+                let adetStr = prompt(urunAdi + " için ürün adedi giriniz:");
+                
+                let fiyat = parseFloat(fiyatStr);
+                let adet = parseInt(adetStr);
+                
+                if (fiyat < 0 || adet < 1 || isNaN(fiyat) || isNaN(adet)) {
+                    document.write("<p>Hatalı fiyat veya adet girişi yapıldı: " + urunAdi + "</p>");
+                    continue;
+                }
+                
+                let urunToplam = fiyat * adet;
+                sepetToplami += urunToplam;
+                
+                document.write("<p>Fiyatı " + fiyat + " TL olan " + urunAdi + "’dan " + adet + " adet alındı.<br>Toplam bedel: " + urunToplam + " TL</p>");
+            }
+            
+            document.write("<h3>Sepet toplamı: " + sepetToplami + " TL</h3>");
+            
+            let indirimTutari = 0;
+            if (sepetToplami >= 1000) {
+                indirimTutari = sepetToplami * 0.10;
+                document.write("<p>%10 İndirim uygulandı.</p>");
+            } else if (sepetToplami >= 500 && sepetToplami <= 999) {
+                indirimTutari = sepetToplami * 0.05;
+                document.write("<p>%5 İndirim uygulandı.</p>");
+            } else {
+                document.write("<p>İndirim uygulanmadı.</p>");
+            }
+            
+            let indirimliSepetToplami = sepetToplami - indirimTutari;
+            document.write("<h3>İndirimli Sepet Toplamı: " + indirimliSepetToplami + " TL</h3>");
+        }
+    </script>
+</body>
+</html>
